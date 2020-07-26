@@ -1,0 +1,16 @@
+/* ediited the get button buttons by changing the class and css
+removed the form border */
+#get:hover{
+    background-color: #86dbf7;
+    border: none;
+    color: black;
+    font-weight: bold;
+}
+
+label{
+    font-weight: bolder;
+    margin-top: 2px;
+}
+h1{
+    font-weight: bolder;
+}

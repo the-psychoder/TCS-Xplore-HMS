@@ -1,0 +1,17 @@
+
+/* editted the inline button
+removed the form border */
+#src-btn:hover{
+    background-color:grey;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+label{
+    font-weight: bolder;
+    margin-top: 3px;
+}
+h1{
+    font-weight: bolder;
+}

@@ -1,0 +1,46 @@
+.btn-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 0.8rem;
+}
+.btn-secondary:not(:disabled):not(.disabled).active:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .1rem #110436;
+}
+
+.dropdown-menu, a[class="dropdown-item"] {
+    background-color: #09aee6;
+    color: #110436;
+}
+
+a[class="dropdown-item"]:hover, a[class="dropdown-item"]:focus, a[class="dropdown-item"]:active {
+    background-color: #86dbf7;
+    color: #110436;
+    font-weight: bold;
+}
+
+header > h2 {
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary, .btn-secondary {
+    background-color: #09aee6;
+    color: #110436;
+    border: 2px solid #110436;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .show > .btn-secondary.dropdown-toggle, .btn-secondary:not(:disabled):not(.disabled).active:focus, .btn-secondary:not(:disabled):not(.disabled):active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+    background-color: #09aee6;
+    color: #110436;
+    border: 3px solid #110436;
+    font-weight: bold;
+}
+
+a > .btn-primary:focus:active {
+    background-color: #09aee6;
+    color: #110436;
+}
+
+i {
+    color: #110436;
+    border-color: #110436;
+}

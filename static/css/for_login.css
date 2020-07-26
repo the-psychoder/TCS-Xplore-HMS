@@ -1,0 +1,55 @@
+/* .login {
+    border: 3px solid #110436;
+    display: inline-block;
+    padding-left: 2rem;
+    transform: translate(55%, 50%);
+    box-shadow: 5px 5px 20px;
+    min-width: 526.9px;
+} */
+
+
+.login {
+    border: 3px solid #110436;
+    display: inline-block;
+    padding-left: 2rem;
+    -webkit-transform: translate(55%, 50%);
+        -ms-transform: translate(55%, 50%);
+            transform: translate(55%, 50%);
+    -webkit-box-shadow: 5px 5px 20px;
+            box-shadow: 5px 5px 20px;
+    width: 526.9px;
+    min-width: 526.9px;
+}
+
+.btn-primary {
+    background-color: #09aee6;
+    color: #110436;
+    border: 2px solid #110436;
+    margin-bottom: 1rem;
+    margin-top: 1.2rem;
+    transform: translateX(270%);
+    box-shadow: 0 0 10px;
+}
+
+a > .btn-primary:focus:active {
+    background-color: #09aee6;
+    color: #110436;
+}
+
+.login > h3{
+    margin-top: 1.4rem;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.form-control {
+    border: 1.5px solid #110436;
+    color: #110436;
+}
+
+.form-control:focus {
+    border: 3px solid #110436;
+    color: #110436;
+}
