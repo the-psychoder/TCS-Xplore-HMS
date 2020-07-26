@@ -1,0 +1,178 @@
+{% extends "home.html" %}
+<!-- Update patient details -->
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/for_update.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<form method='POST' action="{{ url_for('pat_update', p_id = DbPat.ws_pat_id) }}">
+    {{ form.hidden_tag() }}
+
+    <div class="container p-3 my-3 w-50">
+        <h1 class="head-title text-center">Update Patient Details</h1>
+
+
+        <!-- label and input field with an inline span tag for '*' -->
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_pat_id">Patient Id:</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class= "form-control" value = '{{ DbPat.ws_pat_id }}' disabled>
+            </div>
+
+        </div>        
+      
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_pat_name.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.ws_pat_name(placeholder = "Enter Name" , class = "form-control", value = DbPat.ws_pat_name) }}
+            </div>
+        </div>
+        <!-- Any Validation Error in input field is shown with help of this -->
+        <ul>
+            {% for error in form.ws_pat_name.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_age.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.ws_age(placeholder = "Enter Age" , class = "form-control", value = DbPat.ws_age) }}
+            </div>
+        </div>
+        <ul>
+            {% for error in form.ws_age.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_doj.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.ws_doj(class = "form-control", value = DbPat.ws_doj) }}
+            </div>
+        </div>
+        <ul>
+            {% for error in form.ws_doj.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_rtype.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.ws_rtype(class = "custom-select") }}
+            </div>
+        </div>
+        <ul>
+            {% for error in form.ws_rtype.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_adrs.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.ws_adrs(placeholder = "Enter Address" , class = "form-control", value = DbPat.ws_adrs) }}
+            </div>
+        </div>
+        <ul>
+            {% for error in form.ws_adrs.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.state.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.state(class = "custom-select")}}
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.city.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-8">
+                {{ form.city( class = "custom-select") }}
+            </div>
+        </div>
+        <ul>
+            {% for error in form.city.errors %}
+            <p class="text-danger text-right mr-5 mb-4 ">{{ error }}</p>
+            {% endfor %}
+        </ul>
+
+
+        <h6 style="color:red;"> * Required Fields </h3>
+
+            <div class="form-row mt-5 mb-4 ">
+                <div class="col-sm-4 text-right">
+                    {{ form.submit(class = "btn btn-dark  cust-btn")}}
+                </div> <!-- for defining button class  "form.submit(class = 'xyz')" -->
+                <div class="col-sm-4 text-center">
+                    <button type="reset" class="btn btn-dark  cust-btn">Reset</button>
+                </div>
+                <div class="col-sm-4 text-left">
+                    <button type="submit" class="btn btn-dark cust-btn" name= 'back' value='back' >Back to Home</button>
+                </div>
+            </div>
+
+
+    </div>
+</form>
+
+<!-- Js file for state and city change -->
+<script>
+    let state_select = document.getElementById('state');
+    let city_select = document.getElementById('city');
+
+    state_select.onchange = function () {
+        state = state_select.value;
+
+        fetch('/city/' + state).then(function (response) {
+            response.json().then(function (data) {
+                let optionHTML = '';
+                for (let city of data.cities) {
+                    optionHTML += '<option value="' + city.name + '">' + city.name + '</option>';
+                }
+                city_select.innerHTML = optionHTML
+            })
+        })
+    }
+</script>
+
+
+{%endblock%}

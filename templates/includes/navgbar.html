@@ -1,0 +1,34 @@
+<div class="btn-group container" role="group">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not reception %} disabled="disabled" {% endif %}>
+        Patient
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% if pat_create %}#{% else %}{{ url_for('pat_create') }}{% endif %}">Create Patient</a>
+        <a class="dropdown-item" href="{% if pat_update %}#{% else %}{{ url_for('pat_search', typ = 'update') }}{% endif %}">Update Patient</a>
+        <a class="dropdown-item" href="{% if pat_del %}#{% else %}{{ url_for('pat_search', typ = 'delete') }}{% endif %}">Delete Patient</a>
+        <a class="dropdown-item" href="{% if pat_view %}#{% else %}{{ url_for('pat_view') }}{% endif %}">View Patients</a>
+        <a class="dropdown-item" href="{% if pat_search %}#{% else %}{{ url_for('pat_search', typ = 'view') }}{% endif %}">Search Patient</a>
+        <a class="dropdown-item" href="{% if pat_bill %}#{% else %}{{ url_for('pat_bill_search', typ = 'bill') }}{% endif %}">Bill Patient</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not pharmacy %} disabled="disabled" {% endif %}>
+        Pharmacy
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% if ps_pha %}#{% else %}{{ url_for('pat_search_diag_pha', mode = 'pharmacy') }}{% endif %}">Get Patient Details</a>
+        <a class="dropdown-item" href="{% if pat_medi_issue %}#{% else %}{{ url_for('pat_medi_search', typ = 'view') }}{% endif %}">Issue Medicines</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not diagnostics %} disabled="disabled" {% endif %}>
+        Diagnostics
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% if ps_diag %}#{% else %}{{ url_for('pat_search_diag_pha', mode = 'diagnostics') }}{% endif %}">Get Patient Details</a>
+        <a class="dropdown-item" href="{% if add_diag %}#{% else %}{{ url_for('addDiagnostics') }}{% endif %}">Issue Diagnosis</a>
+      </div>
+    </div>
+    <a href="{{ url_for('logout') }}"><button type="button" class="btn btn-primary">Logout</button></a>
+</div>

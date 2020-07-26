@@ -1,0 +1,154 @@
+{% extends 'home.html' %}
+<!-- Display total bill of the patient -->
+{% block content %}
+
+<h1 class="text-center"><b>Patient Billing</b></h1>
+<!-- Table for patient details -->
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Patient ID</th>
+				<th>Patient SSN Id</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Address</th>
+				<th>DOJ</th>
+				<th>Date of discharge</th>
+				<th>Type of Room</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>
+					<form method='POST' action="{{ url_for('pat_bill_search', typ = 'bill') }}">
+						<button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i></button>
+						{{ t1['id'] }}
+					</form>
+				</td>
+				<td>{{ t1['ssn'] }}</td>
+				<td>{{ t1['name'] }}</td>
+				<td>{{ t1['age'] }}</td>
+				<td>{{ t1['address'] }}</td>
+				<td>{{ t1['doj'] }}</td>
+				<td>{{ t1['discharge'] }}</td>
+				<td>{{ t1['bed'] }}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><b>No of Days</b></td>
+				<td><b>{{ t1['days'] }}</b></td>
+				<td><b>Bill for Room</b></td>
+				<td><b>Rs. {{ t1['bedCost'] }}</b></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+
+<h4 class="text-center mt-3 font-weight-bold">Pharmacy Charges</h4>
+<!-- Table displaying pharmacy details of the patient -->
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Medicine</th>
+				<th>Quantity</th>
+				<th>Rate</th>
+				<th>Amount</th>
+
+			</tr>
+		</thead>
+
+		<tbody>
+			{% if t2 %}
+				{% for data in t2 %}
+				<tr>
+					<td>{{ data['name'] }}</td>
+					<td>{{ data['quantity'] }}</td>
+					<td class="text-right">Rs. {{ data['rate'] }}</td>
+					<td class="text-right">Rs. {{ data['amount'] }}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td></td>
+					<td></td>
+					<td><b>Bill for pharmacy</b></td>
+					<td class="text-right"><b>Rs. {{ t1['medCost'] }}</b></td>
+				</tr>
+			{% else %}
+			<tr>
+				<td class="text-center"> - </td>
+				<td class="text-center"> - </td>
+				<td class="text-center"> - </td>
+				<td class="text-center"> - </td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><b>Bill for Pharmacy</b></td>
+				<td class="text-right"><b>Rs 0.00</b></td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+
+
+<h4 class="text-center mt-3 font-weight-bold">Diagnostics Charges</h4>
+<!-- Table displaying diagnostics details of the patient -->
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead class="thead-dark">
+			<tr>
+				<th>Name of the Test</th>
+				<th>Amount</th>
+
+			</tr>
+		</thead>
+
+
+		<tbody>
+			{% if t3 %}
+				{% for data in t3 %}
+				<tr>
+					<td>{{ data['name'] }}</td>
+					<td class="text-right">Rs. {{ data['amount'] }}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+					<td><b>Bill for Diagnostics</b></td>
+					<td class="text-right"><b>Rs {{ t1['diagCost'] }}</b></td>
+				</tr>
+			{% else %}
+			<tr>
+				<td> - </td>
+				<td> - </td>
+			</tr>
+			<tr>
+				<td><b>Bill for Diagnostics</b></td>
+				<td class="text-right"><b>Rs 0.00</b></td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+
+<!-- To display grand total bill amount and for discharging the patient -->
+<div class="form-row mt-5 mb-4 ">
+	<div class="col-sm-6 text-right">
+		<form method='POST' action="">
+			<button class="btn btn-dark font-weight-bold" type="submit" name="confirm" value="True">Confirm</button>
+		</form>
+	</div>
+	<div class="col-sm-6 text-right">
+		<h3 class="font-weight-bolder">Grand Total : Rs. {{ t1['GrandTotal'] }}</h3>
+	</div>
+</div>
+
+{% endblock %}

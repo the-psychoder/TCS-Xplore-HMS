@@ -1,0 +1,185 @@
+{% extends 'home.html' %}
+<!-- Issue medicine page -->
+
+{% block content %}
+
+<h1 class="text-center mb-3 mt-3"><b>Pharmacy</b></h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Patient ID</th>
+                <th>Patient SSN Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>DOJ</th>
+                <th>Type of Room</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <form method='POST' action="{{ url_for('pat_medi_search', typ = 'view') }}">
+                        <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i></button>
+                        {{patient.ws_pat_id}}
+                    </form>
+                </td>
+                <td>{{patient.ws_ssn}}</td>
+                <td>{{patient.ws_pat_name}}</td>
+                <td>{{patient.ws_age}}</td>
+                <td>{{patient.ws_adrs}}</td>
+                <td>{{patient.ws_doj.strftime("%d %B, %Y")}}</td>
+                <td>{{patient.ws_rtype}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- If medicine has been issued previously, then display this table -->
+
+<h2 class="text-center mt-4"><b>Issued Medicine</b></h2>
+{% if medicine %}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Medicine</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Rate</th>
+                <th class="text-center">Amount</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for meds in medicine %}
+            <tr>
+                <td class="text-center">{{meds['name']}}</td>
+                <td class="text-center">{{meds['qty']}}</td>
+                <td class="text-center">Rs. {{meds['rate']}}</td>
+                <td class="text-center">Rs. {{meds['amt']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+<div class="alert alert-primary" role="alert">
+    <h3>No Medicine Issued</h3>
+</div>
+{% endif %}
+<div class="text-center">
+    <button class="btn btn-dark hidden2" style="visibility: visible" onclick="showElement()">Issue Medicine</button>
+</div>
+<!-- Issue new medicine -->
+<h2 class="text-center mt-5 hidden1" style="visibility: collapse"><b>Issue New Medicine</b></h2>
+
+
+<form method='POST' action="{{ url_for('pat_medi_issue',idx=patient.ws_pat_id )}}">
+    <div class="table-responsive hidden4" style="visibility: hidden">
+
+        <table class="table table-bordered" id="issueTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Medicine</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Rate</th>
+                    <th class="text-center">Amount</th>
+
+                </tr>
+            </thead>
+
+
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="table-content" id="medSelect">
+                            {{ form.selectMeds(class = "custom-select")}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="table-content">
+                            {{ form.qtyMeds(class = "form-control", onchange="changeAmtField()") }}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="table-content">
+                            <p id="Rate" class="text-center"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="table-content">
+                            <p id="amt" class="text-center"></p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <div class="container p-3 my-3 w-50 text-center">
+
+        <div class="mb-5 text-center hidden5" style="visibility: hidden">
+            {{ form.submit(class="btn btn-dark") }}
+        </div>
+    </div>
+
+</form>
+
+<!-- Js file for making elements visible -->
+<script type="text/javascript">
+    function showElement() {
+        element1 = document.querySelector('.hidden1');
+        element2 = document.querySelector('.hidden2');
+        element4 = document.querySelector('.hidden4');
+        element5 = document.querySelector('.hidden5');
+        element1.style.visibility = 'visible';
+        element4.style.visibility = 'visible';
+        element5.style.visibility = 'visible';
+        element2.style.visibility = 'collapse';
+
+    }
+
+    let med_select = document.getElementById('selectMeds');
+    let med_rate = document.getElementById('Rate');
+    let med_qty = document.getElementById('qtyMeds');
+    let amt = document.getElementById('amt');
+
+    let actual_qty = -1;
+    let rate = 0;
+    med_select.onchange = function () {
+        issued_med = med_select.value;
+
+        fetch('/medic/' + issued_med).then(function (response) {
+            response.json().then(function (data) {
+                rate = data.meds.rate;
+                actual_qty = data.meds.qty;
+                console.log(data.meds.rate)
+                med_rate.innerHTML = "Rs." + rate.toString();
+            })
+        })
+        changeAmtField()
+    }
+    function changeAmtField() {
+        issued_qty = med_qty.value;
+
+        if (actual_qty != -1) {
+            if (issued_qty > actual_qty) {
+                confirm("Sorry!\n That amount of medicine is not available. ");
+            }
+            else {
+                amt.innerHTML =  "Rs." + (rate * issued_qty).toString();;
+            }
+        }
+    }
+
+</script>
+
+
+{% endblock %}
+

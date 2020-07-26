@@ -1,0 +1,10 @@
+<div>
+    {%if name and medicines %}
+        <h1>Medicines of {{ name }}:-</h1>
+        {% for med in medicines %}
+            <ul>
+                <li>{{ med }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}        
+</div>

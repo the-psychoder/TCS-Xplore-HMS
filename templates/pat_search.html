@@ -1,0 +1,44 @@
+{% extends "home.html" %}
+
+<!-- Search for patient in the database -->
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/for_search.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<form method='POST' action="{{ url_for('pat_search', typ = typ) }}">
+    {{ form.hidden_tag() }}
+
+    <div class="container p-3 my-3 w-50">
+        <h1 class="text-capitalize text-center font-weight-bolder ">{{typ}} Patient Details</h1>
+        <!-- label and input field with an inline span tag for '*' -->
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                {{ form.ws_pat_id.label }}
+                <span style="color:red;"> *</span>
+            </div>
+            <div class="col-sm-6">
+                {{ form.ws_pat_id(placeholder = "Enter Patient Id" , class = "form-control") }}
+            </div>
+
+            <div class="col-sm-2 ">
+                <button type="submit" id='get' class = "btn btn-dark "> Get </button>
+            </div>
+        </div>
+
+        <!-- Any Validation Error in SSN field is shown with help of this -->
+        <ul>
+            {% for error in form.ws_pat_id.errors %}
+            <li style="color:red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</form>
+
+
+{%endblock%}

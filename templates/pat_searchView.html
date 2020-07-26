@@ -1,0 +1,105 @@
+{% extends "home.html" %}
+<!-- View Patient Details in the Patient section -->
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/for_view.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<form method='POST' action="{{ url_for('pat_search', typ = 'view') }}">
+
+
+    <div class="container p-3 my-3 w-50 ">
+        <h1 class="head-title text-center">View Patient Details</h1>
+
+
+        <!-- label and input field with an inline span tag for '*' -->
+        <div class="input-group form-row mt-5 mb-4">
+            <div class="col-sm-4 text-left">
+                <label for="ws_pat_id">Patient Id:</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-light rounded-left" id='src-btn' type="submit"><i
+                            class="fa fa-search"></i></button>
+                    </div>
+                    <input type="text" class="form-control" value='{{ DbPat.ws_pat_id }}' disabled>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_pat_name">Patient Name:</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.ws_pat_name }}' disabled>
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_age">Age :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.ws_age }}' disabled>
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_doj">Date of Admission :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.ws_doj }}' disabled>
+            </div>
+        </div>
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_rtype">Type of Bed :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.ws_rtype }}' disabled>
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="ws_adrs">Address :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.ws_adrs }}' disabled>
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="patient_state">State :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.patient_state }}' disabled>
+            </div>
+        </div>
+
+
+        <div class="form-row mt-5 mb-4 ">
+            <div class="col-sm-4 text-left">
+                <label for="patient_city">City :</label>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value='{{ DbPat.patient_city }}' disabled>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+{%endblock%}

@@ -1,0 +1,10 @@
+<div>
+    {%if name and diagnostics %}
+        <h1>Diagnostics of {{ name }}:-</h1>
+        {% for diag in diagnostics %}
+            <ul>
+                <li>{{ diag }}</li>
+            </ul>
+        {% endfor %}
+    {% endif %}        
+</div>

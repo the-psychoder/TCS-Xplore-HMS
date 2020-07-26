@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+<!-- Home page after logging in -->
+{% block title %}{{ title }}{% endblock %}
+{% block mystyle %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/for_home.css') }}">
+	{% block styles %}{% endblock %}
+{% endblock %}
+
+{% block nav %}
+    {% include "includes/navgbar.html" %}
+{% endblock %}

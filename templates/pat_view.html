@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+<!-- View all patients details -->
+{% block title %} View Patient {% endblock %}
+
+
+
+{% block content %}
+
+<div class="table-responsive mt-3">
+    <table class="table table-bordered">
+      	<thead class="thead-dark">
+		  	<tr>
+				<th>Patient ID</th>
+				<th>Patient SSN Id</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Address</th>
+				<th>DOJ</th>
+				<th>Type of Room</th>
+				<th>State</th>
+				<th>City</th>
+				<th>Status</th>
+        	</tr>
+		</thead>
+
+		<tbody>
+			{% for i in data%}
+				{% if i.patient_status == 'Active' %}
+					<tr>
+						<td>{{i.ws_pat_id}}</td>
+						<td>{{i.ws_ssn}}</td>
+						<td>{{i.ws_pat_name}}</td>
+						<td>{{i.ws_age}}</td>
+						<td>{{i.ws_adrs}}</td>
+						<td>{{i.ws_doj.strftime("%d %B, %Y")}}</td>
+						<td>{{i.ws_rtype}}</td>
+						<td>{{i.patient_state}}</td>
+						<td>{{i.patient_city}}</td>
+						<td>{{i.patient_status}}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
